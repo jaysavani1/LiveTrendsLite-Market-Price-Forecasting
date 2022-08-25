@@ -99,7 +99,7 @@ def exportAllHistoricalData(level='daily', start_date=None, end_date=None, expor
     if level == 'daily':
         
         delta = rtd(years=1)
-        cols = ut.getColNames()
+        cols = getColNames()
         
         for ticker in tqdm(tickers, desc='process tickers Data'):
             
@@ -107,27 +107,26 @@ def exportAllHistoricalData(level='daily', start_date=None, end_date=None, expor
             Ticker: {ticker} || Status: Processing Ticker data...""")
             
             #empty dataframe
-            res = pd.DataFrame(columns=['Open','High','Low','Close','Adj Close','Volume'])
+            #res = pd.DataFrame(columns=['Open','High','Low','Close','Adj Close','Volume'])
             
-            sdate = start_date
-            edate = end_date
+            # sdate = start_date
+            # edate = end_date
             
-            while sdate < edate:
-                ndate = sdate + delta
-                #print(startdate,nextdate)
+            # while sdate < edate:
+            #     ndate = sdate + delta
+            #     #print(startdate,nextdate)
                 
-                #get the 15 min weekly time frame data
-                data = getTickerData(ticker,
-                                    start_date = sdate,
-                                    end_date = ndate,
-                                    interval ='1d')
-                res = pd.concat([res,data])
+            #get the 15 min weekly time frame data
+            res = getTickerData(ticker,
+                                start_date = start_date,
+                                end_date = end_date,
+                                interval ='1d')
+            #res = pd.concat([res,data],ignore_index=False)
                 
-                sdate += delta
+                # sdate += delta
+            res = res.reset_index().rename({'index':'Date'},axis=1)
 
             print(f"""Ticker: {ticker} || Status: Exporting Ticker data... || shape: {res.shape}""")
-            
-            res = res.rename(cols,axis=1).reset_index('Date',drop=True)
 
             if res is not None:
             
@@ -143,14 +142,14 @@ def exportAllHistoricalData(level='daily', start_date=None, end_date=None, expor
                 print(f"Ticker: {ticker} || Status: Done...")
             
                 del res
-                del sdate
-                del edate
-                del ndate
+                #del sdate
+                #del edate
+                #del ndate
             else:
                 del res
-                del sdate
-                del edate
-                del ndate
+                #del sdate
+                #del edate
+                #del ndate
                 continue
         
     
