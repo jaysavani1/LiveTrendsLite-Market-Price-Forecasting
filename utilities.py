@@ -133,7 +133,7 @@ def exportAllHistoricalData(level='daily', start_date=None, end_date=None, expor
                         Status: Creating New Directory || path: {export_path}/{ticker}
                         """, end='\r')
                     os.mkdir(f"{export_path}/{ticker}")
-                    res.to_csv(f"{export_path}/{ticker}/{end_date.date()}.csv")
+                    res.to_feather(f"{export_path}/{ticker}/{end_date.date()}.ftr")
                 
                 else:
                     res.to_csv(f"{export_path}/{ticker}/{end_date.date()}.csv")
