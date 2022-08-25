@@ -6,8 +6,12 @@ import datetime as dt
 
 def main():
     
-    exp_path = 'E:/Workplace/Coding/Projects/Cryps/daily_data'
-    ut.exportAllHistoricalData(export_path=exp_path)
+    # fetch all the levels
+    lvls = list(ut.getTimeDelta().keys())
+    exp_path = 'E:/Workplace/Coding/Projects/Cryps/'
+    
+    for lvl in lvls[:7]:
+        ut.exportAllHistoricalData(level = lvl,export_path=exp_path)
     
     # data = getTickerData('DENT-USD',
     #         start_date = dt.datetime(2010,1,1),

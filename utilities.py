@@ -1,5 +1,6 @@
 import os
 import datetime as dt
+from re import L
 from dateutil.relativedelta import relativedelta as rtd
 
 import pandas as pd
@@ -27,6 +28,56 @@ def getColNames():
         'Volume':'Volume',
     }
     return mapper
+
+def getTimeDelta():
+    """_summary_
+
+    Returns:
+        _type_: dict
+            returns the granularity level pair with time delta
+    """
+    
+    mapper = {
+        "1m":-7, 
+        "2m":-59, 
+        "5m":-59, 
+        "15m":-59, 
+        "30m":-59,
+        "90m":-59,
+        "60m":-729,
+        "1h":-729, 
+        "1d":None,
+        "5d":None,
+        "1wk":None,
+        "1mo":None, 
+        "3mo":None,
+        }
+    return mapper
+
+def getFolderNames():
+    """_summary_
+
+    Returns:
+        _type_: dict
+            retur the granularity level pair with folder names
+    """
+    mapper = {
+        "1m":"1minute", 
+        "2m":"2minute", 
+        "5m":"5minute", 
+        "15m":"15minute", 
+        "30m":"30minute",
+        "90m":"90minute", 
+        "60m":"1hour",
+        "1h":"1hour", 
+        "1d":"daily",
+        "5d":"5day",
+        "1wk":"weekly",
+        "1mo":"1month", 
+        "3mo":"3month"
+        }
+    return mapper
+    
 
 def getTickers():
     """_summary_
@@ -63,28 +114,45 @@ def getTickerData(ticker:str, start_date:str, end_date:str, interval:str):
     data = yf.download(ticker,start_date, end_date, interval=interval)
     return data
 
+def exportFile(data, path, folder, tocken, edate):    
+    
+    if not os.path.exists(f"{path}/{folder}"):
+        print(f"""
+            Status: Creating New Directory || path: {path}/{folder}
+            """)
+        os.mkdir(f"{path}/{folder}")
+        os.mkdir(f"{path}/{folder}/{tocken}")
+        data.to_feather(f"{path}/{folder}/{tocken}/{edate}.ftr")
+    
+    else:
+        if not os.path.exists(f"{path}/{folder}/{tocken}"):
+            os.mkdir(f"{path}/{folder}/{tocken}")
+            data.to_feather(f"{path}/{folder}/{tocken}/{edate}.ftr")
+        else:
+            data.to_feather(f"{path}/{folder}/{tocken}/{edate}.ftr")
+    print(f"Ticker: {tocken} || Status: Done...", end = '\r')
+    del data
 
-def exportAllHistoricalData(level='daily', start_date=None, end_date=None, export_path = None):
+def exportAllHistoricalData(level='1d', start_date=None, end_date=None, export_path = None):
     
     # parameter condition checks
     assert isinstance(level,str), "Parameter: 'level' must be string. Choose either of following: ['1m','15m','1hr','daily', 'weekly', 'monthly']"
     #assert isinstance(start_date,dt.date), "Parameter:'start_date' must be either date object or string date (For Example: dd-mm-yyyy)."
     #assert isinstance(end_date,dt.date), "Parameter:'end_date' must be either date object or string date (Format: dd-mm-yyyy)."
-    assert isinstance(export_path,str), "Enter Valid Path !!!"
+    #assert isinstance(export_path,str), "Enter Valid Path !!!"
     
-    print("""
+    print(f"""
             ==================================================================
-                                        Processing Summary
+                            Processing Summary - {level}
             ==================================================================
             """)
-    print("""Status: Tickers Information Loading...............................""")
+    print("""Status: Tickers Information Loading...............................""", end = '\r')
     #get all the tickers
     tickers = getTickers()
     print(f"""
         Status: Tickers Loaded............................................
         Total Number of Tickers: {len(tickers)}
-        Ticker: {list(tickers)}
-        """)
+        """, end = '\r')
     
     if start_date == None:
         start_date = dt.datetime(2010,1,1)
@@ -96,61 +164,72 @@ def exportAllHistoricalData(level='daily', start_date=None, end_date=None, expor
     else:
         end_date = dt.datetime.strptime(end_date,'%d-%m-Y').date()
     
-    if level == 'daily':
-        
-        delta = rtd(years=1)
-        cols = getColNames()
+    # fetching time delta and folder names
+    timedelta = getTimeDelta()
+    foldernames = getFolderNames()
+    
+    # Lower Frequencies
+    if (level == '1d' or level == '5d' or level == '1wk' or level == '1mo' or level == '3mo' ):
         
         for ticker in tqdm(tickers, desc='process tickers Data'):
             
             print(f"""
-            Ticker: {ticker} || Status: Processing Ticker data...""")
+            Ticker: {ticker} || Status: Processing Ticker data...""", end = '\r')
             
-            #empty dataframe
-            #res = pd.DataFrame(columns=['Open','High','Low','Close','Adj Close','Volume'])
-            
-            # sdate = start_date
-            # edate = end_date
-            
-            # while sdate < edate:
-            #     ndate = sdate + delta
-            #     #print(startdate,nextdate)
-                
-            #get the 15 min weekly time frame data
             res = getTickerData(ticker,
                                 start_date = start_date,
                                 end_date = end_date,
-                                interval ='1d')
-            #res = pd.concat([res,data],ignore_index=False)
-                
-                # sdate += delta
+                                interval = level)
             res = res.reset_index().rename({'index':'Date'},axis=1)
 
-            print(f"""Ticker: {ticker} || Status: Exporting Ticker data... || shape: {res.shape}""")
+            print(f"""Ticker: {ticker} || Status: Exporting Ticker data... || shape: {res.shape}""", end = '\r')
 
             if res is not None:
             
-                if not os.path.exists(f"{export_path}/{ticker}"):
-                    print(f"""
-                        Status: Creating New Directory || path: {export_path}/{ticker}
-                        """, end='\r')
-                    os.mkdir(f"{export_path}/{ticker}")
-                    res.to_feather(f"{export_path}/{ticker}/{end_date.date()}.ftr")
-                
-                else:
-                    res.to_csv(f"{export_path}/{ticker}/{end_date.date()}.csv")
-                print(f"Ticker: {ticker} || Status: Done...")
-            
-                del res
-                #del sdate
-                #del edate
-                #del ndate
+                exportFile(data=res, 
+                           path = export_path, 
+                           folder=foldernames.get(level),
+                           tocken=ticker,
+                           end_date=end_date
+                           )
             else:
                 del res
-                #del sdate
-                #del edate
-                #del ndate
                 continue
         
+    # Moderate frequencies
+    if (level == '1m' or level == '2m' or level == '5m' or level == '30m' or 
+        level == '60m' or level == '1hr' or level == '90m'):
+        
+        for ticker in tqdm(tickers, desc='process tickers Data'):
+            
+            print(f"Ticker: {ticker} || Status: Processing Ticker data...", end = '\r')
+            
+            sd = dt.datetime.now().date()
+            delta = timedelta.get(level)
+            ed = ed = sd+ rtd(days = delta)
+            
+            res = getTickerData(ticker,
+                                start_date = ed,
+                                end_date = sd,
+                                interval=level)
+            res = res.reset_index().rename({'index':'Date'},axis=1)
+            
+            if res is not None:
+                #print(f"{ticker} has data...",end = '\r')
+                exportFile(data = res, 
+                           path = export_path, 
+                           folder = foldernames.get(level), 
+                           tocken = ticker, 
+                           edate = sd)
+            else:
+                del res
+                print(f"{ticker} has skipped...")
+                continue
+            
     
+        
+        
+        
+        
+        
     
