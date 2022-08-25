@@ -99,6 +99,7 @@ def exportAllHistoricalData(level='daily', start_date=None, end_date=None, expor
     if level == 'daily':
         
         delta = rtd(years=1)
+        cols = ut.getColNames()
         
         for ticker in tqdm(tickers, desc='process tickers Data'):
             
@@ -106,7 +107,7 @@ def exportAllHistoricalData(level='daily', start_date=None, end_date=None, expor
             Ticker: {ticker} || Status: Processing Ticker data...""")
             
             #empty dataframe
-            res = pd.DataFrame(columns=['Date','Open','High','Low','Close','Adj Close','Volume'])
+            res = pd.DataFrame(columns=['Open','High','Low','Close','Adj Close','Volume'])
             
             sdate = start_date
             edate = end_date
@@ -126,7 +127,8 @@ def exportAllHistoricalData(level='daily', start_date=None, end_date=None, expor
 
             print(f"""Ticker: {ticker} || Status: Exporting Ticker data... || shape: {res.shape}""")
             
-            res = res.reset_index('Date',drop=True)
+            res = res.rename(cols,axis=1).reset_index('Date',drop=True)
+
             if res is not None:
             
                 if not os.path.exists(f"{export_path}/{ticker}"):
