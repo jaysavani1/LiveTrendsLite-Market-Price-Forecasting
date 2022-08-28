@@ -8,16 +8,10 @@ def main():
     
     # fetch all the levels
     lvls = list(ut.getTimeDelta().keys())
-    exp_path = 'E:/Workplace/Coding/Projects/Cryps/'
+    exp_path = 'Cryps/'
     
-    for lvl in lvls[:7]:
+    for lvl in lvls:
         ut.exportAllHistoricalData(level = lvl,export_path=exp_path)
     
-    # data = getTickerData('DENT-USD',
-    #         start_date = dt.datetime(2010,1,1),
-    #         end_date = dt.datetime.today(),
-    #         interval ='1d')
-    
-    # print(data)
 if __name__ == '__main__':
     main()
