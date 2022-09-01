@@ -225,11 +225,4 @@ def exportAllHistoricalData(level='1d', start_date=None, end_date=None, export_p
                 del res
                 print(f"{ticker} has skipped...")
                 continue
-            
-    
-        
-        
-        
-        
-        
-    
+
