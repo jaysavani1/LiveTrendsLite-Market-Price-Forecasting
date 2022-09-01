@@ -20,7 +20,7 @@ def getSMA(price:pd.Series, period = 21):
     else:
         assert "Invalid closing price !!!"
         
-def getEMA(price,period):
+def getEMA(price:pd.Series,period):
     """_summary_
 
     Args:
@@ -56,3 +56,18 @@ def getBollingerBands(price:pd.Series, period = 21):
     bblowerbound = sma - (std * 2)
     
     return bbupperbound,bbmiddlebound,bblowerbound
+
+def getCMA(price:pd.Series,period=1):
+    """_summary_
+
+    Args:
+        closing_price (pd.Series):
+            Enter the Closing price from the dataset 
+        period (int, optional): _description_. Defaults to 1.
+            average of total number of previous candles
+
+    Returns:
+        _type_: float
+            cumilative moving average of price
+    """
+    return price.expanding(min_periods = period).mean()
