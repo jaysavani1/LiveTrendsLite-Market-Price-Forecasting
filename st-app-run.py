@@ -1,4 +1,4 @@
-import crypto, home
+import crypto, home, stocks
 import streamlit as st
 from multilayout import MultiLayout
 
@@ -10,7 +10,7 @@ def main():
     
     app.add_category("Home",home.app)
     app.add_category("Cryptocurrency",crypto.app)
-    
+    app.add_category("Stocks",stocks.app)
     
     app.run()
     
