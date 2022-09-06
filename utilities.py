@@ -114,6 +114,36 @@ def getTickerData(ticker:str, start_date:str, end_date:str, interval:str):
     data = yf.download(ticker,start_date, end_date, interval=interval)
     return data
 
+def getTickerInfo(tickerSymbol):
+    """_summary_
+
+    Args:
+        tickerSymbol (str):
+            - Enter ticker symbol as an input.
+
+    Returns:
+        str:
+            - Provides the detailed information about the Tocken.
+    """
+    tickerData = yf.Ticker(tickerSymbol)
+    string_name = tickerData.info['description']
+    return string_name
+
+def getTickerLogo(tickerSymbol):
+    """_summary_
+
+    Args:
+        tickerSymbol (str):
+            - Enter ticker symbol as an input.
+
+    Returns:
+        str:
+            - Provides the logo of the Tocken.
+    """
+    tickerData = yf.Ticker(tickerSymbol)
+    string_logo = tickerData.info
+    return string_logo
+
 def exportFile(data, path, folder, tocken, edate):    
     
     if not os.path.exists(f"{path}/{folder}"):
