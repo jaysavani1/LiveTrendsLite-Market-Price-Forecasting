@@ -68,7 +68,7 @@ def oldplotTockenData(df,date_col,sma = False,sma_period = 21,ema = False,ema_pe
     fig.show()
     
     
-def plotTockenData(df, title,name,legend='top',theme='pearl',up_color='green',down_color='red',dimensions =(1000,800)):
+def plotTockenData(df, title,name,legend='top',theme='pearl',up_color='green',down_color='red',dimensions =(880,650)):
     
     qf=cf.QuantFig(
             df = df,
