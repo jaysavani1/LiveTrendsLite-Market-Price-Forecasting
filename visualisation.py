@@ -1,8 +1,4 @@
-from unicodedata import name
-import plotly.graph_objects as go
-import indicators as ind
-import utilities as ut
-import cufflinks as cf
+from imports import *
 cf.go_offline()
 
 def oldplotTockenData(df,date_col,sma = False,sma_period = 21,ema = False,ema_period = 21, bbbands = False,title=None,xlabel = 'Date', ylabel='Price'):
