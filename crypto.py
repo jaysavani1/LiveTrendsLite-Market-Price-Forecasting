@@ -19,4 +19,4 @@ def app():
     fig = vis.plotTockenData(df=df, name=tickerSymbol,title="Chart")
     fig = fig.iplot(asFigure=True)
     
-    st.plotly_chart(fig)
+    st.plotly_chart(fig,use_container_width=True)

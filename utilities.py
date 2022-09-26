@@ -1,14 +1,4 @@
-import os
-import datetime as dt
-from re import L
-from dateutil.relativedelta import relativedelta as rtd
-
-import pandas as pd
-import numpy as np
-from tqdm import tqdm
-
-from yahooquery import Screener
-import yfinance as yf
+from imports import *
 
 def getColNames():
     """_summary_

@@ -1,6 +1,5 @@
-from xml.sax.saxutils import prepare_input_source
-import pandas as pd
-import numpy as np
+from imports import *
+
 
 def getSMA(price:pd.Series, period = 21):
     """_summary_
