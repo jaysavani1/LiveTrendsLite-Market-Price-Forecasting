@@ -64,7 +64,7 @@ def oldplotTockenData(df,date_col,sma = False,sma_period = 21,ema = False,ema_pe
     fig.show()
     
     
-def plotTockenData(df, title,name,legend='top',theme='pearl',up_color='green',down_color='red',dimensions =(880,650)):
+def plotTockenData(df, title,name,legend='top',theme='pearl',up_color='green',down_color='red',dimensions =(880,450)):
     
     qf=cf.QuantFig(
             df = df,
@@ -79,8 +79,7 @@ def plotTockenData(df, title,name,legend='top',theme='pearl',up_color='green',do
     qf.add_volume()
     qf.add_rsi(name = 'RSI',showbands=True, legendgroup = True)            
     qf.add_bollinger_bands(legendgroup = True)
-    qf.add_sma([10,22,44,100,200],legendgroup = True)
-    qf.add_ema([10,22,44,100,200],legendgroup = True)
+    #qf.add_sma([10,22,44,100,200],legendgroup = True)
+    #qf.add_ema([10,22,44,100,200],legendgroup = True)
     
     return qf
-    

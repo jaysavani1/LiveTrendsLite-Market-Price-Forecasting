@@ -8,7 +8,7 @@ def app():
     c_df = b.getScripCodes() # retrive key,company pair dictionary
     p = dict(zip(c_df.values(), c_df.keys())) # reverse the dictionary
     stock_list = list(p.keys()) 
-    period_list = ['1M','3M','6M','12M']
+    period_list = ['12M','6M','3M','1M']
     
     # Streamlit page
     st.markdown("<h1 style='text-align: center;'>Stocks Predictions</h1>", unsafe_allow_html=True) # Main heading
@@ -25,11 +25,11 @@ def app():
     
     col1, col2 = st.columns(2)
 
-    col1.markdown("<h2 style='text-align: center;'>Price</h2>", unsafe_allow_html=True)
+    col1.markdown("<h3 style='text-align: center;'>Price</h3>", unsafe_allow_html=True)
     col1.line_chart(data = q_df,
                   x = 'date',
                   y = 'value')
-    col2.markdown("<h2 style='text-align: center;'>Volume</h2>", unsafe_allow_html=True)
+    col2.markdown("<h3 style='text-align: center;'>Volume</h3>", unsafe_allow_html=True)
     col2.bar_chart(data = q_df,
                     x = 'date',
                     y = 'vol')
