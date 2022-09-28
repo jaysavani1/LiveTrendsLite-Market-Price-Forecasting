@@ -1,7 +1,7 @@
 import streamlit as st
 
 def app():
-    st.title("Crypto Currency Predictions") #title of the web app
+    st.title("Currency Forecast") #title of the web app
     st.markdown("""
                 This app predicts the price of crypto currency
                 

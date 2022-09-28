@@ -84,7 +84,7 @@ def getTickers():
     
     return symbols
 
-def getTickerData(ticker:str, start_date:str, end_date:str, interval:str):
+def getTickerData(ticker:str, start_date:str, end_date:str, interval:str,**kwargs):
     """_summary_
 
     Args:

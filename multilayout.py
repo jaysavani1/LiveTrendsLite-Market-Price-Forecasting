@@ -20,7 +20,7 @@ class MultiLayout:
         })
     
     def run(self):
-        app = st.selectbox(
+        app = st.sidebar.selectbox(
             'Categories',
             self.apps,
             format_func = lambda app: app['title']
