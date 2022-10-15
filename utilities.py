@@ -84,7 +84,12 @@ def getTickers():
     
     return symbols
 
-def getTickerData(ticker:str, start_date:str, end_date:str, interval:str,**kwargs):
+def getTickerData(ticker:str, 
+                  start_date:str = None, 
+                  end_date:str= None, 
+                  interval:str = None,
+                  **kwargs
+    ):
     """_summary_
 
     Args:
@@ -101,7 +106,7 @@ def getTickerData(ticker:str, start_date:str, end_date:str, interval:str,**kwarg
         _type_: _description_
     """
 
-    data = yf.download(ticker,start_date, end_date, interval=interval)
+    data = yf.download(ticker,start_date, end_date, interval=interval, **kwargs)
     return data
 
 def getTickerInfo(tickerSymbol):
