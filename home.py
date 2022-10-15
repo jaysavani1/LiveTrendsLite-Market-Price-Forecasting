@@ -7,9 +7,8 @@ def app():
                 
                 **Credits**
                 - App built by [Jay Savani](https://github.com/jaysavani1)
-                - Built in `Python` using `streamlit`,`yfinance`, `cufflinks`, `pandas` and `datetime`
-                
-                
+                - Built in `Python` using `streamlit`
+                - Disclaimer: This app is created for demonstration purpose only.
+                    Do not rely on predicted price. Do ypur own research before investing.
                 """) #about section
     st.write("---")
-    st.text_input("", "Search...") #search box
