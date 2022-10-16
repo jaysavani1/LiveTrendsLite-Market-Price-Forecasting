@@ -25,7 +25,7 @@ def app():
     q_df = q_df.rename({'date':'Date', 'value':'Close','vol':'Volume'},axis=1)
     q_df['Date'] = pd.to_datetime(q_df['Date']).dt.date
     print(q_df)
-    st.write(q_df)
+    #st.write(q_df)
     
     col1, col2 = st.columns(2)
 
