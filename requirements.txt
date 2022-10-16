@@ -12,3 +12,4 @@ streamlit==1.12.2
 tqdm==4.64.1
 yahooquery==2.2.15
 yfinance==0.1.74
+tensorflow
