@@ -19,6 +19,7 @@ def app():
     if tickerSymbol != select[0]:
         start_date = col2.date_input("Start date", dt.date.today() - dt.timedelta(days=183))
         end_date = col3.date_input("End date", dt.date.today())
+        future_days = st.sidebar.slider('Days', 7,90,7)
         past_num_days = (start_date - end_date).days
         df = ut.getTickerData(tickerSymbol,start_date=start_date,end_date=end_date,interval='1d')
         df_today = ut.getTickerData(tickerSymbol,start_date=start_date, end_date=dt.datetime.now() ,interval='1d')
@@ -34,8 +35,6 @@ def app():
         fig = fig.iplot(asFigure=True)
         
         if tickerSymbol!='--Select--':
-            
-            future_days = st.sidebar.slider('Days', 7,90,14)
             sb_col1,sb_col2 = st.sidebar.columns(2)
             sb_col1.caption("Prediction")
             sb_col2.caption("Clear")
