@@ -32,3 +32,5 @@ UI API reference is provided by "Streamlit". It is an open-source Python library
 pip install streamlit
 ```
 
+#Disclaimer: 
+Before using this site, please make sure that you note the following important information: Do your Own Research Our content is intended to be used and must be used for  informational purposes only.  It is very important to do your own analysis before making any investment  based on your own personal circumstances.  You should take independent financial advice from a professional in connection with,  or independently research and verify,  any information that you find on our Website and wish to rely upon,  whether for the purpose of making an investment decision or otherwise.
