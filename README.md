@@ -1,4 +1,4 @@
-# Crypto Currency Prediction
+# Crypto Currency Price Prediction
 
 ## Authors
 
