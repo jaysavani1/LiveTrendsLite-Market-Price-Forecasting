@@ -17,7 +17,7 @@ This is a very basic overview of an entire architecture of this project shown in
 ## What is LSTMs and how it works?
 
 ![LSTM_Cell svg](https://user-images.githubusercontent.com/39219880/198695913-8e0d5336-2140-4128-b76d-445a49a44930.png)
-Long Short-Term Memory (LSTM) networks are a type of recurrent neural network capable of learning order dependence in sequence prediction problems. This is a behavior required in complex problem domains like machine translation, speech recognition, and more. LSTMs are a complex area of deep learning. It can be hard to get your hands around what LSTMs are, and how terms like bidirectional and sequence-to-sequence relate to the field. Above diagram shows the simple structure of LSTM archtecture consist of one input layer, one hidden layer, and one output layer. For more detailed overview, you can refer [LSTM](https://direct.mit.edu/neco/article-abstract/9/8/1735/6109/Long-Short-Term-Memory?redirectedFrom=fulltext).
+Long Short-Term Memory (LSTM) networks are a type of recurrent neural network capable of learning order dependence in sequence prediction problems. This is a behavior required in complex problem domains like machine translation, speech recognition, and more. LSTMs are a complex area of deep learning. It can be hard to get your hands around what LSTMs are, and how terms like bidirectional and sequence-to-sequence relate to the field. Above diagram shows the simple structure of LSTM archtecture. For more detailed overview, you can refer [LSTM](https://direct.mit.edu/neco/article-abstract/9/8/1735/6109/Long-Short-Term-Memory?redirectedFrom=fulltext).
 
 
 ## API Reference
