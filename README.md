@@ -1,4 +1,4 @@
-# Crypto Currency Price Prediction
+# LiveTrendsLite Platform - Stock Market Price Forecasting
 
 ## Authors
 
